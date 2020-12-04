@@ -46,15 +46,20 @@
                         </li>
                     </ul>
                 </li>   
-                <li class="nav-item">
-                    <a href="{{ route('dashboard') }}"
-                        class="nav-link {{ request()->segment(2) == 'home' ? 'active' : '' }}">
-                        <i class="icon-users"></i>
-                        <span>
-                            Employee Management
-                        </span>
-                    </a>
-                </li>
+                <li
+                    class="nav-item nav-item-submenu {{ in_array(request()->segment(2), ['hr'])  ? 'nav-item-open nav-item-expanded' : '' }}">
+                    <a href="#" class="nav-link"><i class="icon-users"></i> <span>HR Management</span></a>
+
+                    <ul class="nav nav-group-sub" data-submenu-title="Layouts">
+                        <li class="nav-item"><a href="{{ route('employee.index') }}"
+                                class="nav-link {{ request()->segment(3) == 'employee' ? 'active' : '' }}">Employee</a>
+                        </li>
+                        <li class="nav-item"><a href="{{ route('departement.index') }}"
+                                class="nav-link {{ request()->segment(3) == 'departement' ? 'active' : '' }}">Departement</a>
+                        </li>
+                    </ul>
+                </li>   
+                
                 <!-- /main -->
             </ul>
         </div>
