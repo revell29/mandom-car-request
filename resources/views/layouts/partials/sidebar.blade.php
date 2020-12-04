@@ -44,10 +44,16 @@
                         <li class="nav-item"><a href="{{ route('user.index') }}"
                                 class="nav-link {{ request()->segment(2) == 'user' ? 'active' : '' }}">Users</a>
                         </li>
-                        <li class="nav-item"><a href="{{ route('role.index') }}"
-                                class="nav-link {{ request()->segment(2) == 'role' ? 'active' : '' }}">Role</a>
-                        </li>
                     </ul>
+                </li>   
+                <li class="nav-item">
+                    <a href="{{ route('dashboard') }}"
+                        class="nav-link {{ request()->segment(2) == 'home' ? 'active' : '' }}">
+                        <i class="icon-users"></i>
+                        <span>
+                            Employee Management
+                        </span>
+                    </a>
                 </li>
                 <!-- /main -->
             </ul>

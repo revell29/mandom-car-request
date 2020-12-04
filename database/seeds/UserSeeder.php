@@ -16,8 +16,6 @@ class UserSeeder extends Seeder
         User::create([
             'name' => 'Jhone Doe',
             'email' => 'admin@example.com',
-            'phone' => '08571417438974',
-            'address' => 'Bekasi',
             'password' => bcrypt('admin123'),
             'created_by' => 1
         ]);
@@ -30,8 +28,6 @@ class UserSeeder extends Seeder
             DB::table('users')->insert([
                 'name' => $faker->name,
                 'email' => $faker->email,
-                'phone' => $faker->phoneNumber(),
-                'address' => $faker->address,
                 'password' => bcrypt('admin123'),
                 'created_by' => 1
             ]);
