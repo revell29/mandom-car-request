@@ -42,7 +42,7 @@
                 <div class="card-footer">
                     <div class="text-right">
                         <button type="button" id="save" class="btn btn-md btn-primary pull-right">Submit</button>
-                        <a href="{{route('user.index')}}" class="btn btn-md btn-danger">Back</a>
+                        <a href="{{route('departement.index')}}" class="btn btn-md btn-danger">Back</a>
                     </div>
                 </div>
             </div>

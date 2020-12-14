@@ -34,6 +34,10 @@ Route::group(['prefix' => 'backend'], function () {
         Route::resource('user', 'Backend\UserController');
 
         /**
+         * Car Request
+         */
+        Route::resource('car_request', 'Backend\CarRequestController');
+        /**
          * HR Management
          */
         Route::group(['prefix' => 'hr'], function () {
@@ -45,6 +49,11 @@ Route::group(['prefix' => 'backend'], function () {
             Route::post('employee/restore/{id}', 'Backend\EmployeeController@restore')->name('employee.restore');
             Route::delete('employee/remove/{id}', 'Backend\EmployeeController@remove')->name('employee.delete');
             Route::resource('employee', 'Backend\EmployeeController');
+        });
+
+        Route::group(['prefix' => 'maintenance'], function () {
+            Route::resource('mobil', 'Backend\MobilController');
+            Route::resource('supir', 'Backend\SupirController');
         });
     });
 });

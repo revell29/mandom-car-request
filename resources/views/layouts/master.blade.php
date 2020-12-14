@@ -15,6 +15,7 @@
     <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="/css/bootstrap_limitless.min.css" rel="stylesheet" type="text/css">
     <link href="/css/layout.min.css" rel="stylesheet" type="text/css">
+    <link href="/css/custom.css" rel="stylesheet" type="text/css">
     <link href="/css/components.min.css" rel="stylesheet" type="text/css">
     <link href="/css/colors.min.css" rel="stylesheet" type="text/css">
     <!-- /global stylesheets -->

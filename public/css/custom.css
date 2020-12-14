@@ -1,0 +1,18 @@
+.daterangepicker-inputs {
+  display: none;
+}
+
+.daterangepicker-inputs {
+  display: none;
+}
+
+.ranges ul li.active {
+  color: #fff;
+  background-color: #2196F3 !important;
+}
+
+.daterangepicker td.active {
+  background-color: #2196F3 !important;
+  color: #fff;
+  border-radius: 3px;
+}

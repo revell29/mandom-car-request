@@ -17,7 +17,7 @@
                 </div>
 
                 <div class="form-group form-group-feedback form-group-feedback-left">
-                    <input type="text" class="form-control @error('email') border-danger @enderror" placeholder="Email"
+                    <input type="text" class="form-control @error('email') border-danger @enderror" placeholder="Username"
                         name="email">
                     <div class="form-control-feedback">
                         <i class="icon-user text-muted"></i>

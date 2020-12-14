@@ -36,3 +36,10 @@ if (!function_exists('num_uf')) {
     return str_replace('.', '', $number);
   }
 }
+
+if (!function_exists('generate_number')) {
+  function generate_number($value, $threshold = 4)
+  {
+    return sprintf('%0' . $threshold . 's', $value);
+  }
+}

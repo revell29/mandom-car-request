@@ -10,6 +10,13 @@ class MsEmployee extends Model
     use SoftDeletes;
 
     protected $guarded = [];
+    protected $hidden = ['password'];
+
+    public static function forDropdown()
+    {
+        $data = Self::pluck('name', 'id');
+        return $data;
+    }
 
     public function departement()
     {
