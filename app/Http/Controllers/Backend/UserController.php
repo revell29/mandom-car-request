@@ -31,7 +31,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('pages.user.create_edit');
+        $options = $this->options();
+        return view('pages.user.create_edit', compact('options'));
     }
 
     /**
@@ -47,7 +48,9 @@ class UserController extends Controller
 
             User::create([
                 'name' => $request->name,
+                'username' => $request->username,
                 'email' => $request->email,
+                'role' => $request->role,
                 'password' => \bcrypt($request->password),
                 'created_by' => Auth::user()->id
             ]);
@@ -80,7 +83,8 @@ class UserController extends Controller
     public function edit($id)
     {
         $data = User::findOrFail($id);
-        return view('pages.user.create_edit', compact('data'));
+        $options = $this->options();
+        return view('pages.user.create_edit', compact('data', 'options'));
     }
 
     /**
@@ -98,7 +102,9 @@ class UserController extends Controller
 
             $data->update([
                 'name' => $request->name,
+                'username' => $request->username,
                 'email' => $request->email,
+                'role' => $request->role,
                 'updated_by' => Auth::user()->id
             ]);
 
@@ -172,5 +178,12 @@ class UserController extends Controller
             })
             ->escapeColumns([])
             ->make(true);
+    }
+
+    private function options()
+    {
+        $role = ['superadmin' => 'Super Admin', 'approver' => 'Approver', 'requester' => 'Requester'];
+        $options['role'] = $role;
+        return $options;
     }
 }

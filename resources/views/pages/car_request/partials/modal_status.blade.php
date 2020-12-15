@@ -3,7 +3,7 @@
     @method('put')
       <div class="modal-content">
           <div class="modal-header">
-              <h5 class="modal-title" id="title-role">Update Status</h5>
+              <h5 class="modal-title" id="title-role">Form Approver</h5>
               <button type="button" class="close" data-dismiss="modal">×</button>
           </div>
 
@@ -14,11 +14,11 @@
               </div>
               <div class="form-group">
                 <label for="">Supir</label>
-                {!! Form::select('status',$options['supir'],isset($data) ? $data->supir_id : null,['class' => 'form-control select','placeholder'=>'Pilih Supir']) !!}
+                {!! Form::select('supir_id',$options['supir'],isset($data) ? $data->supir_id : null,['class' => 'form-control select','placeholder'=>'Pilih Supir']) !!}
             </div>
               <div class="form-group">
                   <label for="">Mobil</label>
-                  {!! Form::select('status',$options['mobil'],isset($data) ? $data->mobil_id : null,['class' => 'form-control select','placeholder'=>'Pilih Mobil']) !!}
+                  {!! Form::select('mobil_id',$options['mobil'],isset($data) ? $data->mobil_id : null,['class' => 'form-control select','placeholder'=>'Pilih Mobil']) !!}
               </div>
           </div>
 

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddRoleUser extends Migration
+class AddCreatedByCarRequest extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class AddRoleUser extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->enum('role', ['superadmin', 'approver', 'requester'])->nullable();
+        Schema::table('car_requests', function (Blueprint $table) {
+            $table->unsignedInteger('created_by');
+            $table->unsignedInteger('updated_by')->nullable();
         });
     }
 
@@ -25,8 +26,8 @@ class AddRoleUser extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('role');
+        Schema::table('car_requests', function (Blueprint $table) {
+            $table->dropColumn(['created_by', 'updated_by']);
         });
     }
 }

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class CarRequest extends Model
 {
     protected $guarded = [];
+    protected $dates = ['date'];
 
     public function employee()
     {
@@ -16,5 +17,15 @@ class CarRequest extends Model
     public function departement()
     {
         return $this->belongsTo(MsDepartement::class, 'departement_id', 'id');
+    }
+
+    public function supir()
+    {
+        return $this->belongsTo(MsSupir::class, 'supir_id');
+    }
+
+    public function mobil()
+    {
+        return $this->belongsTo(MsMobil::class, 'mobil_id');
     }
 }

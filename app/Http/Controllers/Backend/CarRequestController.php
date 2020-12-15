@@ -13,6 +13,9 @@ use App\Models\MsEmployee;
 use App\Models\MsMobil;
 use App\Models\MsSupir;
 use Carbon\Carbon;
+use Barryvdh\DomPDF\Facade as PDFBar;
+use PDF;
+
 
 class CarRequestController extends Controller
 {
@@ -28,9 +31,13 @@ class CarRequestController extends Controller
 
             if (!empty($request->datefrom)) {
                 $date = explode(' - ', $request->datefrom);
-                $start = Carbon::createFromFormat('d/m/Y', $date[0])->toDateString();
-                $end = Carbon::createFromFormat('d/m/Y', $date[1])->toDateString();
-                $data->whereBetween('date', [$start, $end]);
+                $start = Carbon::createFromFormat('d/m/Y H:i', $date[0] . '00:00')->toDateTimeString();
+                $end = Carbon::createFromFormat('d/m/Y H:i', $date[1] . '23:59')->toDateTimeString();
+                $data->whereBetween(DB::raw('DATE(date)'), [$start, $end]);
+            }
+
+            if (auth()->user()->role == 'requester') {
+                $data->where('created_by', auth()->user()->id);
             }
 
             if (!empty($request->employee_id)) {
@@ -44,8 +51,12 @@ class CarRequestController extends Controller
             $data->orderBy('id', 'DESC')->get();
 
             return DataTables::of($data)
-                ->editColumn('no_transaksi', function ($row) {
-                    return "<a href='" . route('car_request.show', $row->id) . "'>$row->no_transaksi</a>";
+                ->addColumn('print', function ($row) {
+                    if (auth()->user()->role == 'superadmin' || auth()->user()->role == 'approver') {
+                        return "<a href='" . route('car_request.print',) . "?no_transaction=" . $row->no_transaksi . "' target='_blank'><i class='icon-printer'></i></a>";
+                    } else {
+                        return "<i class='icon-lock'></i>";
+                    }
                 })
                 ->editColumn('status', function ($item) {
                     if ($item->status == 'PROCESS') {
@@ -58,7 +69,11 @@ class CarRequestController extends Controller
                         $badge = "badge-success";
                     }
 
-                    return "<a href='" . route('car_request.edit', $item->id) . "' id='open_modal_staus'><label class='badge " . $badge . "'>$item->status</label></a>";
+                    if (auth()->user()->role == 'superadmin' || auth()->user()->role == 'approver') {
+                        return "<a href='" . route('car_request.edit', $item->id) . "' id='open_modal_staus'><label class='badge " . $badge . "'>$item->status</label></a>";
+                    } else {
+                        return $item->status;
+                    }
                 })
                 ->escapeColumns([])
                 ->make(true);
@@ -100,7 +115,8 @@ class CarRequestController extends Controller
             }
 
             $request->merge([
-                'no_transaksi' => $noTransaksi
+                'no_transaksi' => $noTransaksi,
+                'created_by' => auth()->user()->id
             ]);
             CarRequest::create($request->all());
 
@@ -119,11 +135,7 @@ class CarRequestController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        $options = $this->options();
-        $data = CarRequest::find($id);
-        return view('pages.car_request.create_edit', compact('options', 'data'));
-    }
+    { }
 
     /**
      * Show the form for editing the specified resource.
@@ -148,12 +160,13 @@ class CarRequestController extends Controller
     public function update(Request $request, $id)
     {
         $data = CarRequest::find($id);
+        $auth = auth()->user()->id;
         if ($request->status == 'APPROVED') {
-            $data->update(['approved_at' => Carbon::now(), 'status' => $request->status]);
+            $data->update(['approved_at' => Carbon::now(), 'status' => $request->status, 'supir_id' => $request->supir_id, 'mobil_id' => $request->mobil_id, 'updated_by' => $auth]);
         } else if ($request->status == 'RESERVED') {
-            $data->update(['reserved_at' => Carbon::now(), 'status' => $request->status]);
+            $data->update(['reserved_at' => Carbon::now(), 'status' => $request->status, 'supir_id' => $request->supir_id, 'mobil_id' => $request->mobil_id, 'updated_by' => $auth]);
         } else if ($request->status == 'CANCELED') {
-            $data->update(['status' => $request->status]);
+            $data->update(['status' => $request->status, 'updated_by' => $auth]);
         }
 
         return response()->json(['message' => 'Status berhasil diperbarui.'], 200);
@@ -168,6 +181,26 @@ class CarRequestController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    /**
+     * 
+     * 
+     */
+    public function detail(Request $request)
+    {
+
+
+        return view('pages.car_request.detail');
+    }
+
+    public function search(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = CarRequest::with('mobil', 'supir', 'departement', 'employee')->where('no_transaksi', $request->no_transaction)->first();
+            return response()->json($data);
+        }
     }
 
     private function options()
@@ -188,5 +221,36 @@ class CarRequestController extends Controller
         $options['status'] = $status;
 
         return $options;
+    }
+
+    public function printPdf(Request $request)
+    {
+        $data = CarRequest::with('mobil', 'supir', 'employee', 'departement')->where('no_transaksi', $request->get('no_transaction'))->first();
+        $pdf = PDF::loadView('pages.car_request.document', compact('data'));
+        return $pdf->stream('surat-jalan.pdf');
+    }
+
+    public function exportReport(Request $request)
+    {
+        $data = CarRequest::with('employee', 'departement', 'supir', 'mobil');
+
+        if (!empty($request->datefrom)) {
+            $date = explode(' - ', $request->datefrom);
+            $start = Carbon::createFromFormat('d/m/Y H:i', $date[0] . '00:00')->toDateTimeString();
+            $end = Carbon::createFromFormat('d/m/Y H:i', $date[1] . '23:59')->toDateTimeString();
+            $data->whereBetween(DB::raw('DATE(date)'), [$start, $end]);
+        }
+
+        if (!empty($request->employee_id)) {
+            $data->where('employee_id', $request->employee_id);
+        }
+
+        if (!empty($request->status)) {
+            $data->where('status', $request->status);
+        }
+
+        $data = $data->orderBy('id', 'DESC')->get();
+        $pdf = PDFBar::loadView('pages.car_request.report', compact('data', 'request'))->setPaper('a4', 'landscape');
+        return $pdf->stream('report-car-request.pdf');
     }
 }

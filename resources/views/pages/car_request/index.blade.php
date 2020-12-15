@@ -11,7 +11,14 @@
 @section('content')
 @component('layouts.component.header')
 @slot('tools')
-<a href="{{route('car_request.create')}}" class="btn btn-md btn-primary">
+@if(auth()->user()->role == 'superadmin' || auth()->user()->role == 'approver') 
+<a href="{{route('car_request.detail')}}" class="btn btn-md btn-primary">
+    <i class="icon-books mr-2"></i>
+    <span>Detail Car Request</span>
+</a>
+
+@endif
+<a href="{{route('car_request.create')}}" class="btn btn-md btn-primary ml-2">
     <i class="icon-plus-circle2 mr-2"></i>
     <span>Tambah Request</span>
 </a>
@@ -33,6 +40,7 @@
                 <thead>
                     <tr>
                         <th>ID</th>
+                        <th>Cetak</th>
                         <th>No Transaksi</th>
                         <th>Employee</th>
                         <th>Departement</th>
@@ -77,6 +85,7 @@
         },
             columns: [
                 { data: 'id', name: 'id', width: '50px', orderable: true, class: 'text-center' },
+                { data: 'print', name: 'print', width: '50px', orderable: false, searchable: false, class: 'text-center' },
                 { data: 'no_transaksi', name: 'no_transaksi', searchable: true },
                 { data: 'employee.name', name: 'employee.name' },
                 { data: 'departement.name', name: 'departement.name' },

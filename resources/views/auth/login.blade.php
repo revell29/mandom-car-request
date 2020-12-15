@@ -17,12 +17,12 @@
                 </div>
 
                 <div class="form-group form-group-feedback form-group-feedback-left">
-                    <input type="text" class="form-control @error('email') border-danger @enderror" placeholder="Username"
-                        name="email">
+                    <input type="text" class="form-control @error('username') border-danger @enderror" placeholder="Username"
+                        name="username">
                     <div class="form-control-feedback">
                         <i class="icon-user text-muted"></i>
                     </div>
-                    @error('email')
+                    @error('username')
                     <span class="form-text text-danger" role="alert">
                         {{ $message }}
                     </span>

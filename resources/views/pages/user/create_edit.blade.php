@@ -8,13 +8,11 @@
 @endslot
 @slot('breadcumbs')
 <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Home</span> / User /
-    {{isset($data) ? 'Edit User' : 'Create User'}}</h4>
+    {{isset($data) ? 'Edit User' : 'Tambah User'}}</h4>
 <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
 @endslot
 @slot('breadcumbs2')
-<a href="{{url('/backend/home')}}" class="breadcrumb-item"> Home</a>
-<a href="{{route('user.index')}}" class="breadcrumb-item">User</a>
-<span class="breadcrumb-item active">{{isset($data) ? 'Edit User' : 'Create User'}}</span>
+
 @endslot
 @endcomponent
 <!-- Main content -->
@@ -23,7 +21,7 @@
         <div class="col-md-12 col-lg-4">
             <div class="card">
                 <div class="card-header header-elements-inline">
-                    <h5 class="card-title">{{isset($data) ? 'Edit Admin' : 'Add Admin'}}</h5>
+                    <h5 class="card-title">{{isset($data) ? 'Edit user' : 'Tambah user'}}</h5>
                 </div>
                 <div class="card-body">
                     <form id="form-user" enctype="multipart/form-data">
@@ -34,9 +32,18 @@
                                 value="{{isset($data) ? $data->name : null}}">
                         </div>
                         <div class="form-group">
+                            <label for="">Username</label>
+                            <input type="text" name="username" class="form-control" id=""
+                                value="{{isset($data) ? $data->username : null}}">
+                        </div>
+                        <div class="form-group">
                             <label for="">Email</label>
                             <input type="email" name="email" class="form-control" id=""
                                 value="{{isset($data) ? $data->email : null}}">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Level Akses</label>
+                            {!! Form::select('role',$options['role'], isset($data) ? $data->role : null, ['class' => 'form-control','placeholder' => 'Pilih Role']) !!}
                         </div>
                         <div class="form-group">
                             <label for="">Password</label>

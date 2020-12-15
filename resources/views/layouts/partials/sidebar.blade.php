@@ -36,8 +36,9 @@
                         </span>
                     </a>
                 </li>
-                <li
-                    class="nav-item nav-item-submenu {{ in_array(request()->segment(2), ['user'])  ? 'nav-item-open nav-item-expanded' : '' }}">
+               @if(auth()->user()->role == 'superadmin')
+               <li
+               class="nav-item nav-item-submenu {{ in_array(request()->segment(2), ['user'])  ? 'nav-item-open nav-item-expanded' : '' }}">
                     <a href="#" class="nav-link"><i class="icon-user"></i> <span>User Management</span></a>
 
                     <ul class="nav nav-group-sub" data-submenu-title="Layouts">
@@ -59,6 +60,7 @@
                         </li>
                     </ul>
                 </li>   
+               @endif
                 <li class="nav-item">
                     <a href="{{ route('car_request.index') }}"
                         class="nav-link {{ request()->segment(2) == 'request' ? 'active' : '' }}">
@@ -68,19 +70,21 @@
                         </span>
                     </a>
                 </li>
+                @if(auth()->user()->role == 'superadmin')
                 <li
                 class="nav-item nav-item-submenu {{ in_array(request()->segment(2), ['maintenance'])  ? 'nav-item-open nav-item-expanded' : '' }}">
-                <a href="#" class="nav-link"><i class="icon-cogs"></i> <span>Maintenance</span></a>
+                    <a href="#" class="nav-link"><i class="icon-cogs"></i> <span>Maintenance</span></a>
 
-                <ul class="nav nav-group-sub" data-submenu-title="Layouts">
-                    <li class="nav-item"><a href="{{ route('mobil.index') }}"
-                            class="nav-link {{ request()->segment(3) == 'mobil' ? 'active' : '' }}">Mobil</a>
-                    </li>
-                    <li class="nav-item"><a href="{{ route('supir.index') }}"
-                            class="nav-link {{ request()->segment(3) == 'supir' ? 'active' : '' }}">Supir</a>
-                    </li>
-                </ul>
-            </li>   
+                    <ul class="nav nav-group-sub" data-submenu-title="Layouts">
+                        <li class="nav-item"><a href="{{ route('mobil.index') }}"
+                                class="nav-link {{ request()->segment(3) == 'mobil' ? 'active' : '' }}">Mobil</a>
+                        </li>
+                        <li class="nav-item"><a href="{{ route('supir.index') }}"
+                                class="nav-link {{ request()->segment(3) == 'supir' ? 'active' : '' }}">Supir</a>
+                        </li>
+                    </ul>
+                </li>   
+                @endif
                 
                 <!-- /main -->
             </ul>

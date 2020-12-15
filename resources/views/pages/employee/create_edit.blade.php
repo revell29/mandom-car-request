@@ -52,16 +52,7 @@
                                     <input type="text" name="city" class="form-control" id=""
                                         value="{{isset($data) ? $data->city : null}}">
                                 </div>
-                                <div class="form-group">
-                                    <label for="">Password</label>
-                                    <input type="password" name="password" class="form-control" id=""
-                                        value="">
-                                </div>
-                                <div class="form-group">
-                                    <label for="">Password Konfirmasi</label>
-                                    <input type="password" name="password_confirmation" class="form-control" id=""
-                                        value="">
-                                </div>
+                               
                            </div>
                            <div class="col-md-6">
                                 <div class="form-group">
