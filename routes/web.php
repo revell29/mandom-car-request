@@ -23,6 +23,7 @@ Route::group(['prefix' => 'backend'], function () {
         return redirect('/backend/login');
     });
     Route::group(['middleware' => 'auth'], function () {
+        Route::get('/dashboard/chart', 'HomeController@getChart');
         Route::get('/dashboard', 'HomeController@index')->name('dashboard');
 
         /**

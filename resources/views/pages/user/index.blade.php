@@ -16,7 +16,7 @@
 </a>
 @endslot
 @slot('breadcumbs')
-<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Home</span> / User / Users</h4>
+<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Home</span> / User Management/ Users</h4>
 <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
 @endslot
 @slot('breadcumbs2')
@@ -38,14 +38,16 @@
             </div>
         </div>
 
-        <table class="table table-hover table-bordered table-xxs datatable-select-checkbox" id="data-table"
+        <table class="table table-hover table-bordered table-xs datatable-select-checkbox" id="data-table"
             data-url="{{route('user.index')}}">
             <thead>
                 <tr>
                     <th><input type="checkbox" class="styled" id="select-all"></th>
                     <th>ID</th>
                     <th>Name</th>
+                    <th>Username</th>
                     <th>Email</th>
+                    <th>Role</th>
                     <th>Created At</th>
                     <th class="text-center">Active</th>
                 </tr>
@@ -80,8 +82,10 @@
                 { data: 'id', name: 'id', width: '50px', orderable: false, render: function() { return ''} },
                 { data: 'id', name: 'id', width: '30px' , class: "text-center", searchable: false },
                 { data: 'name', name: 'name' },
+                { data: 'username', name: 'username' },
                 { data: 'email', name: 'email' },
-                { data: 'created_at', name: 'created_at' },
+                { data: 'role', name: 'role' },
+                { data: 'created_at', name: 'created_at', width: '180px' },
                 { data: 'deleted_at', name: 'deleted_at', width: '30px', class: 'text-center', searchable: false },
             ]
         });
