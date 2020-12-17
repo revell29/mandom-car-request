@@ -38,6 +38,7 @@ Route::group(['prefix' => 'backend'], function () {
          * Car Request
          */
         Route::post('car_request/search', 'Backend\CarRequestController@search')->name('car_request.search');
+        Route::get('car_request/approver', 'Backend\CarRequestController@formApprover')->name('car_request.approver');
         Route::get('car_request/detail', 'Backend\CarRequestController@detail')->name('car_request.detail');
         Route::get('car_request/print', 'Backend\CarRequestController@printPdf')->name('car_request.print');
         Route::post('car_request/report', 'Backend\CarRequestController@exportReport')->name('car_request.export');

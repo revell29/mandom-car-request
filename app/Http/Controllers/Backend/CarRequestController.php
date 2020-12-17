@@ -67,6 +67,8 @@ class CarRequestController extends Controller
                         $badge = "badge-danger";
                     } else if ($item->status == 'RESERVED') {
                         $badge = "badge-success";
+                    } else {
+                        $badge = "badge-info";
                     }
 
                     if (auth()->user()->role == 'superadmin' || auth()->user()->role == 'approver') {
@@ -167,6 +169,8 @@ class CarRequestController extends Controller
             $data->update(['reserved_at' => Carbon::now(), 'status' => $request->status, 'supir_id' => $request->supir_id, 'mobil_id' => $request->mobil_id, 'updated_by' => $auth]);
         } else if ($request->status == 'CANCELED') {
             $data->update(['status' => $request->status, 'updated_by' => $auth]);
+        } else if ($request->status == 'PROCESS') {
+            $data->update(['status' => $request->status, 'updated_by' => $auth]);
         }
 
         return response()->json(['message' => 'Status berhasil diperbarui.'], 200);
@@ -185,14 +189,43 @@ class CarRequestController extends Controller
 
 
     /**
-     * 
-     * 
+     * Details page Car request
      */
     public function detail(Request $request)
     {
-
-
         return view('pages.car_request.detail');
+    }
+
+    public function formApprover(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = CarRequest::where('status', 'OPEN')->with('employee', 'departement');
+
+            if (!empty($request->datefrom)) {
+                $date = explode(' - ', $request->datefrom);
+                $start = Carbon::createFromFormat('d/m/Y H:i', $date[0] . '00:00')->toDateTimeString();
+                $end = Carbon::createFromFormat('d/m/Y H:i', $date[1] . '23:59')->toDateTimeString();
+                $data->whereBetween(DB::raw('DATE(date)'), [$start, $end]);
+            }
+
+            $data->orderBy('id', 'DESC')->get();
+
+            return DataTables::of($data)
+                ->addColumn('print', function ($row) {
+                    if (auth()->user()->role == 'superadmin' || auth()->user()->role == 'approver') {
+                        return "<a href='" . route('car_request.print',) . "?no_transaction=" . $row->no_transaksi . "' target='_blank'><i class='icon-printer'></i></a>";
+                    } else {
+                        return "<i class='icon-lock'></i>";
+                    }
+                })
+                ->editColumn('status', function ($item) {
+                    return \Form::select('status', ['PROCESS' => 'PROCESS', "CANCELED" => 'CANCELED', 'OPEN' => 'OPEN'], $item->status, ['class' => 'form-control status_selected', 'style' => 'width:120px;', 'data-id' => $item->id]);
+                })
+                ->escapeColumns([])
+                ->make(true);
+        }
+
+        return view('pages.car_request.form_approver');
     }
 
     public function search(Request $request)

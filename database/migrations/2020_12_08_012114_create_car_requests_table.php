@@ -23,7 +23,7 @@ class CreateCarRequestsTable extends Migration
             $table->date('date');
             $table->time('start_time');
             $table->time('end_time');
-            $table->enum('status', ['PROCESS', 'RESERVED', 'APPROVED', 'CANCELD']);
+            $table->enum('status', ['PROCESS', 'RESERVED', 'APPROVED', 'CANCELED', 'OPEN'])->default("OPEN");
             $table->timestamp('approved_at')->nullable();
             $table->timestamp('reserved_at')->nullable();
             $table->timestamps();

@@ -11,12 +11,16 @@
 @section('content')
 @component('layouts.component.header')
 @slot('tools')
+
 @if(auth()->user()->role == 'superadmin' || auth()->user()->role == 'approver') 
-<a href="{{route('car_request.detail')}}" class="btn btn-md btn-primary">
+<a href="{{route('car_request.approver')}}" class="btn btn-md btn-primary">
+    <i class="icon-books mr-2"></i>
+    <span>Form Approver</span>
+</a>
+<a href="{{route('car_request.detail')}}" class="btn btn-md btn-primary ml-2">
     <i class="icon-books mr-2"></i>
     <span>Detail Car Request</span>
 </a>
-
 @endif
 <a href="{{route('car_request.create')}}" class="btn btn-md btn-primary ml-2">
     <i class="icon-plus-circle2 mr-2"></i>
