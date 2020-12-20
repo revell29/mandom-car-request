@@ -72,10 +72,10 @@
         <td width="5%">{{ $datas->start_time }}</td>
         <td width="5%">{{ $datas->end_time }}</td>
         <td >{{ $datas->description }}</td>
-        <td>{{ $datas->supir->nama }}</td>
-        <td>{{ $datas->supir->type }}</td>
-        <td>{{ $datas->mobil->merek_mobil }}</td>
-        <td>{{ $datas->mobil->no_polisi }}</td>
+        <td>{{ $datas->supir ? $datas->supir->nama  : ''}}</td>
+        <td>{{ $datas->supir ? $datas->supir->type : '' }}</td>
+        <td>{{ $datas->mobil ? $datas->mobil->merek_mobil : '' }}</td>
+        <td>{{ $datas->mobil ? $datas->mobil->no_polisi : '' }}</td>
       </tr>
     @endforeach
  </table>

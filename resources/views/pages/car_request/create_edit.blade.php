@@ -1,6 +1,15 @@
 @extends('layouts.master')
 @section('title', 'Car Request')
 
+@section('scripts')
+<script type="text/javascript" src="/global_assets/js/plugins/tables/datatables/datatables.min.js"></script>
+<script type="text/javascript" src="/global_assets/js/plugins/tables/datatables/extensions/select.min.js"></script>
+<script type="text/javascript" src="/global_assets/js/plugins/notifications/sweet_alert.min.js"></script>
+<script type="text/javascript" src="/global_assets/js/plugins/ui/moment/moment.min.js"></script>
+<script type="text/javascript" src="/global_assets/js/plugins/pickers/daterangepicker.js"></script>
+<script type="text/javascript" src="/custom/datatables.js"></script>
+@endsection
+
 @section('content')
 @component('layouts.component.header')
 @slot('tools')
@@ -35,11 +44,11 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="">Karyawan</label>
-                                    {!! Form::select('employee_id',$options['employee'], isset($data) ? $data->employee_id : null, ['class' => 'form-control select','placeholder' => '- Pilih Karyawan -']) !!}
+                                    {!! Form::select('employee_id',$options['employee'], isset($data) ? $data->employee_id : null, ['class' => 'form-control select karyawan','placeholder' => '- Pilih Karyawan -']) !!}
                                 </div>
                                 <div class="form-group">
                                     <label for="">Departement</label>
-                                    {!! Form::select('departement_id',$options['departement'], isset($data) ? $data->departement_id : null, ['class' => 'form-control select','placeholder' => '- Pilih Departement -']) !!}
+                                    {!! Form::select('departement_id',$options['departement'], isset($data) ? $data->departement_id : null, ['class' => 'form-control select departement','placeholder' => '- Pilih Departement -','readonly','disabled']) !!}
                                 </div>
                                 <div class="form-group">
                                     <label for="">Destinasi</label>
@@ -137,5 +146,18 @@
         });
     }    
 });
+
+$(".karyawan").on("change", function(e) {
+        console.log('test')
+        let id = $(this).val();
+        $.ajax({
+            method: "GET",
+            url: "/backend/hr/employee/get_employee/"+id,
+            success:function(res) {
+                console.log(res)
+                $('.departement').val(res.departement_id).change();
+            }
+        })
+    });
 </script>
 @endpush

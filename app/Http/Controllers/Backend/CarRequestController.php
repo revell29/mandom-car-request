@@ -116,9 +116,12 @@ class CarRequestController extends Controller
                 $noTransaksi  = $prefix . str_pad((substr($checkData->no_transaksi, strlen($prefix)) + 1), 5, '0', STR_PAD_LEFT);
             }
 
+            $employee = MsEmployee::where('id', $request->employee_id)->first();
+
             $request->merge([
                 'no_transaksi' => $noTransaksi,
-                'created_by' => auth()->user()->id
+                'created_by' => auth()->user()->id,
+                'departement_id' => $employee->departement_id,
             ]);
             CarRequest::create($request->all());
 

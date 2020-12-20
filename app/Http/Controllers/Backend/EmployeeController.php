@@ -166,4 +166,10 @@ class EmployeeController extends Controller
 
         return $options;
     }
+
+    public function getEmployee($id)
+    {
+        $data = MsEmployee::find($id);
+        return response()->json($data);
+    }
 }

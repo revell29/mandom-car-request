@@ -52,6 +52,7 @@ Route::group(['prefix' => 'backend'], function () {
             Route::resource('departement', 'Backend\DepartementController');
 
             // Employee
+            Route::get('employee/get_employee/{id}', 'Backend\EmployeeController@getEmployee')->name('employee.getEmployee');
             Route::post('employee/restore/{id}', 'Backend\EmployeeController@restore')->name('employee.restore');
             Route::delete('employee/remove/{id}', 'Backend\EmployeeController@remove')->name('employee.delete');
             Route::resource('employee', 'Backend\EmployeeController');

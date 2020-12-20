@@ -66,15 +66,15 @@
       </tr>
       <tr>
         <td  style="text-align: right;  padding: 6px;">SUPIR: </td>
-        <td>{{ $data->supir->nama }}</td>
+        <td>{{ $data->supir ? $data->supir->nama : ''}}</td>
       </tr>
       <tr>
         <td  style="text-align: right;  padding: 6px;">NO POL: </td>
-        <td>{{ $data->mobil->no_polisi }}</td>
+        <td>{{ $data->mobil ? $data->mobil->no_polisi : '' }}</td>
       </tr>
       <tr>
         <td  style="text-align: right;  padding: 6px;">TYPE: </td>
-        <td>{{ $data->mobil->merek_mobil }}</td>
+        <td>{{ $data->mobil ? $data->mobil->merek_mobil : '' }}</td>
       </tr>
       <tr>
         <td  style="text-align: right;  padding: 6px;">TANGGAL: </td>

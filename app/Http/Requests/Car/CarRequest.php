@@ -25,7 +25,6 @@ class CarRequest extends FormRequest
     {
         return [
             'employee_id' => 'required',
-            'departement_id' => 'required',
             'destination' => "required",
             'date' => 'required|date',
             'start_time' => 'required',
