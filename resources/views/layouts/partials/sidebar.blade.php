@@ -27,15 +27,17 @@
                     <div class="text-uppercase font-size-xs line-height-xs">Main</div> <i class="icon-menu"
                         title="Main"></i>
                 </li> --}}
-                <li class="nav-item">
-                    <a href="{{ route('dashboard') }}"
-                        class="nav-link {{ request()->segment(2) == 'home' ? 'active' : '' }}">
-                        <i class="icon-home4"></i>
-                        <span>
-                            Dashboard
-                        </span>
-                    </a>
+               @if(auth()->user()->role == 'superadmin')
+               <li class="nav-item">
+                <a href="{{ route('dashboard') }}"
+                    class="nav-link {{ request()->segment(2) == 'home' ? 'active' : '' }}">
+                    <i class="icon-home4"></i>
+                    <span>
+                        Dashboard
+                    </span>
+                </a>
                 </li>
+               @endif
                @if(auth()->user()->role == 'superadmin')
                <li
                class="nav-item nav-item-submenu {{ in_array(request()->segment(2), ['user'])  ? 'nav-item-open nav-item-expanded' : '' }}">

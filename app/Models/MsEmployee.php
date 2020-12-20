@@ -14,7 +14,12 @@ class MsEmployee extends Model
 
     public static function forDropdown()
     {
-        $data = Self::pluck('name', 'id');
+        $auth = auth()->user()->departement_id;
+        if (auth()->user()->role == 'superadmin') {
+            $data = Self::pluck('name', 'id');
+        } else {
+            $data = Self::where('departement_id', $auth)->pluck('name', 'id');
+        }
         return $data;
     }
 

@@ -46,6 +46,10 @@
                             {!! Form::select('role',$options['role'], isset($data) ? $data->role : null, ['class' => 'form-control','placeholder' => 'Pilih Role']) !!}
                         </div>
                         <div class="form-group">
+                            <label for="">Departement</label>
+                            {!! Form::select('departement_id',$options['departement'], isset($data) ? $data->departement_id : null, ['class' => 'form-control','placeholder' => 'Pilih Departement']) !!}
+                        </div>
+                        <div class="form-group">
                             <label for="">Password</label>
                             <input type="password" name="password" class="form-control" id="" value="">
                         </div>

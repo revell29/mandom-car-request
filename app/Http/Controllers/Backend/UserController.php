@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\UserRequest;
 use App\Http\Requests\User\UserUpdateRequest;
+use App\Models\MsDepartement;
 use Illuminate\Http\Request;
 use App\Models\User;
 use DB;
@@ -52,7 +53,8 @@ class UserController extends Controller
                 'email' => $request->email,
                 'role' => $request->role,
                 'password' => \bcrypt($request->password),
-                'created_by' => Auth::user()->id
+                'created_by' => Auth::user()->id,
+                'departement_id' => $request->departement_id
             ]);
 
             DB::commit();
@@ -105,7 +107,8 @@ class UserController extends Controller
                 'username' => $request->username,
                 'email' => $request->email,
                 'role' => $request->role,
-                'updated_by' => Auth::user()->id
+                'updated_by' => Auth::user()->id,
+                'departement_id' => $request->departement_id
             ]);
 
             if (!empty($request->password)) {
@@ -184,6 +187,10 @@ class UserController extends Controller
     {
         $role = ['superadmin' => 'Super Admin', 'approver' => 'Approver', 'requester' => 'Requester'];
         $options['role'] = $role;
+
+        $departement = MsDepartement::forDropdown();
+        $options['departement'] = $departement;
+
         return $options;
     }
 }
