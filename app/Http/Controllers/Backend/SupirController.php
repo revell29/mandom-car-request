@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\MsMobil;
 use Illuminate\Http\Request;
 use DataTables;
 use App\Models\MsSupir;
@@ -37,7 +38,8 @@ class SupirController extends Controller
      */
     public function create()
     {
-        return view('pages.supir.create_edit');
+        $options = $this->options();
+        return view('pages.supir.create_edit', compact('options'));
     }
 
     /**
@@ -72,7 +74,8 @@ class SupirController extends Controller
     public function edit($id)
     {
         $data = MsSupir::find($id);
-        return view('pages.supir.create_edit', compact('data'));
+        $options = $this->options();
+        return view('pages.supir.create_edit', compact('data', 'options'));
     }
 
     /**
@@ -99,5 +102,13 @@ class SupirController extends Controller
     {
         MsSupir::whereIn('id', explode(',', $id))->remove();
         return response()->json(['message' => 'Supir Berhasil di hapus.'], 200);
+    }
+
+    private function options()
+    {
+        $car = MsMobil::forDropdown();
+        $options['mobil'] = $car;
+
+        return $options;
     }
 }

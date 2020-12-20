@@ -44,6 +44,10 @@
                             <label for="">Type</label>
                             {!! Form::select('type',['internal' => 'Internal','eksternal' => 'Eksternal'], isset($data) ? $data->type : null, ['class' => 'form-control']) !!}
                         </div>
+                        <div class="form-group">
+                            <label for="">Mobil</label>
+                            {!! Form::select('id_mobil',$options['mobil'], isset($data) ? $data->id_mobil : null, ['class' => 'form-control']) !!}
+                        </div>
                     </form>
                 </div>
                 <div class="card-footer">
