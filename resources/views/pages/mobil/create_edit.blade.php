@@ -32,7 +32,7 @@
                                 value="{{isset($data) ? $data->no_polisi : null}}">
                         </div>
                         <div class="form-group">
-                            <label for="">Jeni Mobil</label>
+                            <label for="">Jenis Mobil</label>
                             <input type="text" name="jenis_mobil" class="form-control" id=""
                                 value="{{isset($data) ? $data->jenis_mobil : null}}">
                         </div>
