@@ -47,7 +47,10 @@ class SupirController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    { }
+    {
+        MsSupir::create($request->all());
+        return response()->json(['message' => 'Supir berhasil ditambahkan.'], 200);
+    }
 
     /**
      * Display the specified resource.
@@ -68,7 +71,8 @@ class SupirController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = MsSupir::find($id);
+        return view('pages.supir.create_edit', compact('data'));
     }
 
     /**
@@ -80,7 +84,9 @@ class SupirController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = MsSupir::find($id);
+        $data->update($request->all());
+        return response()->json(['message' => 'Supir berhasil diupdate'], 200);
     }
 
     /**
@@ -91,6 +97,7 @@ class SupirController extends Controller
      */
     public function destroy($id)
     {
-        //
+        MsSupir::whereIn('id', explode(',', $id))->remove();
+        return response()->json(['message' => 'Supir Berhasil di hapus.'], 200);
     }
 }

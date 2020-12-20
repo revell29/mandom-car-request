@@ -38,7 +38,7 @@
                         </div>
                         <div class="form-group">
                             <label for="">No Telp</label>
-                            <input type="text" name="no_telp" class="form-control" id="" value="">
+                            <input type="text" name="no_telp" class="form-control" id="" value="{{ isset($data) ? $data->no_telp : '' }}">
                         </div>
                         <div class="form-group">
                             <label for="">Type</label>

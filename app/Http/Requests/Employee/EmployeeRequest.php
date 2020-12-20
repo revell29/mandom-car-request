@@ -31,8 +31,6 @@ class EmployeeRequest extends FormRequest
             'city' => 'required',
             'address' => 'required',
             'hp' => 'required',
-            'password' => 'required',
-            'password_confirmation' => "sometimes|required|same:password"
         ];
     }
 
