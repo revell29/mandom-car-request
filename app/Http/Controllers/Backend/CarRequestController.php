@@ -213,7 +213,7 @@ class CarRequestController extends Controller
             return DataTables::of($data)
                 ->addColumn('print', function ($row) {
                     if (auth()->user()->role == 'superadmin' || auth()->user()->role == 'approver') {
-                        return "<a href='" . route('car_request.print',) . "?no_transaction=" . $row->no_transaksi . "' target='_blank'><i class='icon-printer'></i></a>";
+                        return "<a href='" . route('car_request.print') . "?no_transaction=" . $row->no_transaksi . "' target='_blank'><i class='icon-printer'></i></a>";
                     } else {
                         return "<i class='icon-lock'></i>";
                     }
