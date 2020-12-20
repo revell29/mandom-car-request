@@ -84,6 +84,9 @@
                         <li class="nav-item"><a href="{{ route('supir.index') }}"
                                 class="nav-link {{ request()->segment(3) == 'supir' ? 'active' : '' }}">Supir</a>
                         </li>
+                        <li class="nav-item"><a href="{{ route('destinasi.index') }}"
+                            class="nav-link {{ request()->segment(3) == 'destinasi' ? 'active' : '' }}">Destinasi</a>
+                    </li>
                     </ul>
                 </li>   
                 @endif

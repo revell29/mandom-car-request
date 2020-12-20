@@ -68,7 +68,7 @@
         <td>{{ $datas->no_transaksi }}</td>
         <td>{{ $datas->date }}</td>
         <td>{{ $datas->employee->name }}</td>
-        <td>{{ $datas->destination }}</td>
+        <td>{{ $datas->destinasi ? $datas->destinasi->kota : '' }}</td>
         <td width="5%">{{ $datas->start_time }}</td>
         <td width="5%">{{ $datas->end_time }}</td>
         <td >{{ $datas->description }}</td>

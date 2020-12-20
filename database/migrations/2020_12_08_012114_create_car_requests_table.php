@@ -18,7 +18,7 @@ class CreateCarRequestsTable extends Migration
             $table->string('no_transaksi');
             $table->unsignedInteger('employee_id');
             $table->unsignedInteger('departement_id');
-            $table->string('destination');
+            $table->integer('destination');
             $table->text('description');
             $table->date('date');
             $table->time('start_time');

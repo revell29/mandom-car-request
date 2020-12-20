@@ -29,6 +29,11 @@ class CarRequest extends Model
         return $this->belongsTo(MsMobil::class, 'mobil_id');
     }
 
+    public function destinasi()
+    {
+        return $this->belongsTo(MsDestination::class, 'destination', 'id');
+    }
+
     public static function chartTransaction()
     {
         $data = Self::select(

@@ -59,6 +59,11 @@ Route::group(['prefix' => 'backend'], function () {
         });
 
         Route::group(['prefix' => 'maintenance'], function () {
+
+            Route::post('destinasi/restore/{id}', 'Backend\DestinationController@restore');
+            Route::delete('destinasi/remove/{id}', 'Backend\DestinationController@remove');
+            Route::resource('destinasi', 'Backend\DestinationController');
+
             Route::resource('mobil', 'Backend\MobilController');
             Route::resource('supir', 'Backend\SupirController');
         });

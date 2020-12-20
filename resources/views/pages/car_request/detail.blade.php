@@ -124,7 +124,7 @@
             <td>${res.no_transaksi}</td>
             <td>${res.employee.name}</td>
             <td>${res.departement.name}</td>
-            <td>${res.destination}</td>
+            <td>${res.destinasi ? res.destinasi.kota : ''}</td>
             <td>${res.description}</td>
             <td>${res.date}</td>
             <td>${res.status}</td>
@@ -135,8 +135,8 @@
             <td>${res.reserved_at ? res.reserved_at : ''}</td>
           </tr>
         `;
-        $(".nip_diver").val(res.supir.nip)
-        $(".car_number").val(res.mobil.no_polisi)
+        $(".nip_diver").val(res.supir ? res.supir.nip : '')
+        $(".car_number").val(res.mobil ? res.mobil.no_polisi : '')
         $(".status").val(res.status)
         $(".date").val(res.date)
         $(".note").val(res.description)

@@ -9,6 +9,7 @@ use DataTables;
 use DB;
 use App\Models\CarRequest;
 use App\Models\MsDepartement;
+use App\Models\MsDestination;
 use App\Models\MsEmployee;
 use App\Models\MsMobil;
 use App\Models\MsSupir;
@@ -27,7 +28,7 @@ class CarRequestController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = CarRequest::with('employee', 'departement');
+            $data = CarRequest::with('employee', 'departement', 'destinasi');
 
             if (!empty($request->datefrom)) {
                 $date = explode(' - ', $request->datefrom);
@@ -202,7 +203,7 @@ class CarRequestController extends Controller
     public function formApprover(Request $request)
     {
         if ($request->ajax()) {
-            $data = CarRequest::where('status', 'OPEN')->with('employee', 'departement');
+            $data = CarRequest::where('status', 'OPEN')->with('employee', 'departement', 'destinasi');
 
             if (!empty($request->datefrom)) {
                 $date = explode(' - ', $request->datefrom);
@@ -234,7 +235,7 @@ class CarRequestController extends Controller
     public function search(Request $request)
     {
         if ($request->ajax()) {
-            $data = CarRequest::with('mobil', 'supir', 'departement', 'employee')->where('no_transaksi', $request->no_transaction)->first();
+            $data = CarRequest::with('mobil', 'supir', 'departement', 'employee', 'destinasi')->where('no_transaksi', $request->no_transaction)->first();
             return response()->json($data);
         }
     }
@@ -243,6 +244,9 @@ class CarRequestController extends Controller
     {
         $employee = MsEmployee::forDropdown();
         $options['employee'] = $employee;
+
+        $destinasi = MsDestination::forDropdown();
+        $options['destinasi'] = $destinasi;
 
         $departement = MsDepartement::forDropdown();
         $options['departement'] = $departement;
@@ -261,14 +265,14 @@ class CarRequestController extends Controller
 
     public function printPdf(Request $request)
     {
-        $data = CarRequest::with('mobil', 'supir', 'employee', 'departement')->where('no_transaksi', $request->get('no_transaction'))->first();
+        $data = CarRequest::with('mobil', 'supir', 'employee', 'departement', 'destinasi')->where('no_transaksi', $request->get('no_transaction'))->first();
         $pdf = PDF::loadView('pages.car_request.document', compact('data'));
         return $pdf->stream('surat-jalan.pdf');
     }
 
     public function exportReport(Request $request)
     {
-        $data = CarRequest::with('employee', 'departement', 'supir', 'mobil');
+        $data = CarRequest::with('employee', 'departement', 'supir', 'mobil', 'destinasi');
 
         if (!empty($request->datefrom)) {
             $date = explode(' - ', $request->datefrom);

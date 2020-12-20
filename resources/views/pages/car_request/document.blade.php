@@ -125,7 +125,7 @@
        </tr>
        <tr>
          <td>{{ $data->employee->name }}</td>
-         <td>{{ $data->destination }}</td>
+         <td>{{ $data->destinasi ? $data->destinasi->kota : '' }}</td>
          <td>{{ $data->start_time }}</td>
          <td>{{ $data->end_time }}</td>
          <td ></td>

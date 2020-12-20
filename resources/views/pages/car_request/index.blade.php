@@ -93,7 +93,7 @@
                 { data: 'no_transaksi', name: 'no_transaksi', searchable: true },
                 { data: 'employee.name', name: 'employee.name' },
                 { data: 'departement.name', name: 'departement.name' },
-                { data: 'destination', name: 'destination' },
+                { data: 'destinasi.kota', name: 'destinasi.kota',orderable: false },
                 { data: 'description', name: 'description' },
                 { data: 'date', name: 'date' },
                 { data: 'status', name: 'status', width: '30px', class: 'text-center', searchable: false },

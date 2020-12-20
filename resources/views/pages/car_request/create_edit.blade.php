@@ -52,8 +52,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="">Destinasi</label>
-                                    <input type="text" name="destination" class="form-control" id=""
-                                        value="{{isset($data) ? $data->destination : null}}">
+                                    {!! Form::select('destination',$options['destinasi'], isset($data) ? $data->destination : null, ['class' => 'form-control select destinasi','placeholder' => '- Pilih Destinasi -']) !!}
                                 </div>
                                 <div class="form-group">
                                     <label for="">Tanggal</label>
