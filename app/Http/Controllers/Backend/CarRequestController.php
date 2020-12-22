@@ -257,7 +257,11 @@ class CarRequestController extends Controller
         $supir = MsSupir::forDropdown();
         $options['supir'] = $supir;
 
-        $status = ['PROCESS' => 'PROCESS', 'APPROVED' => 'APPROVED', 'CANCELED' => 'CANCELED', 'RESERVED' => 'RESERVED'];
+        if (auth()->user()->role == 'approver') {
+            $status = ['APPROVED' => 'APPROVED', 'CANCELED' => 'CANCELED'];
+        } else if (auth()->user()->role == 'superadmin') {
+            $status = ['PROCESS' => 'PROCESS', 'APPROVED' => 'APPROVED', 'CANCELED' => 'CANCELED', 'RESERVED' => 'RESERVED'];
+        }
         $options['status'] = $status;
 
         return $options;

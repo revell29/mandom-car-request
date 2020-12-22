@@ -10,7 +10,7 @@
           <div class="modal-body">
               <div class="form-group">
                   <label for="">Status</label>
-                  {!! Form::select('status',$options['status'],isset($data) ? $data->status : null,['class' => 'form-control select']) !!}
+                  {!! Form::select('status',$options['status'],isset($data) ? $data->status : null,['class' => 'form-control select','placeholder' => 'Pilih Status']) !!}
               </div>
               <div class="form-group">
                 <label for="">Supir</label>
