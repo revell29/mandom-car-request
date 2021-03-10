@@ -49,6 +49,18 @@
                           </div>
                         </div>
                         <div class="form-group row">
+                          <label class="col-form-label col-lg-2">Nama Driver</label>
+                          <div class="col-lg-3">
+                              <input type="text" class="form-control nama_driver" readonly>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="col-form-label col-lg-2">No HP Driver</label>
+                          <div class="col-lg-3">
+                              <input type="text" class="form-control no_driver" readonly>
+                          </div>
+                        </div>
+                        <div class="form-group row">
                           <label class="col-form-label col-lg-2">NIP Driver</label>
                           <div class="col-lg-3">
                               <input type="text" class="form-control nip_diver" readonly>
@@ -135,6 +147,8 @@
             <td>${res.reserved_at ? res.reserved_at : ''}</td>
           </tr>
         `;
+        $(".nama_driver").val(res.supir ? res.supir.nama : '')
+        $(".no_driver").val(res.supir ? res.supir.no_telp : '')
         $(".nip_diver").val(res.supir ? res.supir.nip : '')
         $(".car_number").val(res.mobil ? res.mobil.no_polisi : '')
         $(".status").val(res.status)
